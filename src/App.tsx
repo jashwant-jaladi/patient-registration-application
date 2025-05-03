@@ -29,9 +29,8 @@ export interface PatientRecord {
 
 function App() {
 
-
-
   const [patientRecords, setPatientRecords] = useState<PatientRecord[]>([])
+  const [query, setQuery] = useState<string>("")
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   useEffect(() => {
@@ -39,7 +38,6 @@ function App() {
       try {
         setLoading(true)
         const data = await db.query("SELECT * FROM patients")
-        console.log(data.rows)
         setPatientRecords(data.rows as PatientRecord[])
       } catch (error) {
         setError(error instanceof Error ? error.message : String(error))
@@ -49,18 +47,35 @@ function App() {
     }
     fetchPatientRecords()
   }, [])
+
+  useEffect(()=>{
+    async function customQuery() {
+      try {
+        setLoading(true)
+        const data = await db.query(query)
+        setPatientRecords(data.rows as PatientRecord[])
+      } catch (error) {
+        setError(error instanceof Error ? error.message : String(error))
+      } finally {
+        setLoading(false)
+      }
+    }
+    if (query) {
+      customQuery()
+    }
+  }, [query])
+  
+
   if (loading) {
-    return <div className="flex justify-center items-center h-screen">Loading...</div>
+    return <div className="flex justify-center bg-black text-white items-center h-screen">Loading...</div>
   }
-  if (error) {
-    return <div className="flex justify-center items-center h-screen">Error: {error}</div>
-  }
+
 
   return (
     <div className="bg-black text-white min-h-screen">
       <Header />
       <PatientForm setPatientRecords={setPatientRecords} />
-      <QueryInput />
+      <QueryInput setQuery={setQuery} />
       <DisplayTable patientRecords={patientRecords} />
     </div>
 
