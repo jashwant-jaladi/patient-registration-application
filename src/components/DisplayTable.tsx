@@ -1,16 +1,20 @@
-import React from 'react'
+
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import { PatientRecord } from "@/App";
 
-const DisplayTable = () => {
-    return (
+interface DisplayTableProps {
+    patientRecords: PatientRecord[];
+}
+const DisplayTable: React.FC<DisplayTableProps> = ({ patientRecords }) => {
+
+    return (    
         <div>
             <h3 className='text-xl flex justify-center pt-10 pb-6'>Registered Patient Records</h3>
             <Table className='w-full'>
@@ -39,27 +43,30 @@ const DisplayTable = () => {
                 </TableHeader>
 
                 <TableBody>
-                    <TableRow>
-                        <TableCell className='text-center border border-gray-300'>12345</TableCell>
-                        <TableCell className='text-center border border-gray-300'>John</TableCell>
-                        <TableCell className='text-center border border-gray-300'>Doe</TableCell>
-                        <TableCell className='text-center border border-gray-300'>1990-01-01</TableCell>
-                        <TableCell className='text-center border border-gray-300'>Male</TableCell>
-                        <TableCell className='text-center border border-gray-300'>180</TableCell>
-                        <TableCell className='text-center border border-gray-300'>75</TableCell>
-                        <TableCell className='text-center border border-gray-300'>Single</TableCell>
-                        <TableCell className='text-center border border-gray-300'>john@example.com</TableCell>
-                        <TableCell className='text-center border border-gray-300'>1234567890</TableCell>
-                        <TableCell className='text-center border border-gray-300'>123 Main St</TableCell>
-                        <TableCell className='text-center border border-gray-300'>Cityville</TableCell>
-                        <TableCell className='text-center border border-gray-300'>California</TableCell>
-                        <TableCell className='text-center border border-gray-300'>90001</TableCell>
-                        <TableCell className='text-center border border-gray-300'>No</TableCell>
-                        <TableCell className='text-center border border-gray-300'>Jane</TableCell>
-                        <TableCell className='text-center border border-gray-300'>Doe</TableCell>
-                        <TableCell className='text-center border border-gray-300'>Sister</TableCell>
-                        <TableCell className='text-center border border-gray-300'>9876543210</TableCell>
-                    </TableRow>
+
+                    {patientRecords.map((item, key) => (
+                        <TableRow key={key} >
+                            <TableCell className='text-center border border-gray-300'>{item.id}</TableCell>
+                            <TableCell className='text-center border border-gray-300'>{item.firstname}</TableCell>
+                            <TableCell className='text-center border border-gray-300'>{item.lastname}</TableCell>
+                            <TableCell className='text-center border border-gray-300'>{item.dateofbirth}</TableCell>
+                            <TableCell className='text-center border border-gray-300'>{item.sex}</TableCell>
+                            <TableCell className='text-center border border-gray-300'>{item.height}</TableCell>
+                            <TableCell className='text-center border border-gray-300'>{item.weight}</TableCell>
+                            <TableCell className='text-center border border-gray-300'>{item.maritalstatus}</TableCell>
+                            <TableCell className='text-center border border-gray-300'>{item.contact_email}</TableCell>
+                            <TableCell className='text-center border border-gray-300'>{item.contact_phone}</TableCell>
+                            <TableCell className='text-center border border-gray-300'>{item.address_street}</TableCell>
+                            <TableCell className='text-center border border-gray-300'>{item.address_city}</TableCell>
+                            <TableCell className='text-center border border-gray-300'>{item.address_state}</TableCell>
+                            <TableCell className='text-center border border-gray-300'>{item.address_zip}</TableCell>
+                            <TableCell className='text-center border border-gray-300'>{item.takingmedications}</TableCell>
+                            <TableCell className='text-center border border-gray-300'>{item.emergencycontact_firstname}</TableCell>
+                            <TableCell className='text-center border border-gray-300'>{item.emergencycontact_lastname}</TableCell>
+                            <TableCell className='text-center border border-gray-300'>{item.emergencycontact_relationship}</TableCell>
+                            <TableCell className='text-center border border-gray-300'>{item.emergencycontact_phone}</TableCell>
+                        </TableRow>
+                    ))}
                 </TableBody>
 
 
