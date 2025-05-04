@@ -9,14 +9,18 @@ interface QueryInputProps {
 const QueryInput: React.FC<QueryInputProps> = ({ setQuery }) => {
   const [input, setInput] = useState('')
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()  
     setQuery(input)
     setInput('')
   }
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <div className="flex gap-4 items-center justify-center p-8 w-[50%]">
+      <form
+        onSubmit={handleSubmit}
+        className="flex gap-4 items-center justify-center p-8 w-[50%]"
+      >
         <Input
           type="text"
           placeholder="Enter your query here..."
@@ -25,14 +29,15 @@ const QueryInput: React.FC<QueryInputProps> = ({ setQuery }) => {
           onChange={(e) => setInput(e.target.value)}
         />
         <Button
+          type="submit"
           className="bg-amber-600 text-white rounded-lg hover:bg-amber-800 focus:outline-none focus:ring-2"
-          onClick={handleSubmit}
         >
           Submit
         </Button>
-      </div>
+      </form>
     </div>
   )
 }
+
 
 export default QueryInput

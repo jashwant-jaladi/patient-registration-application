@@ -95,7 +95,9 @@ async function onSubmit(values: FormSchemaType) {
     };
 
     setPatientRecords(prev => [...prev, newPatientRecord]);
+    form.reset()
     alert('Form submitted successfully!')
+    
   } catch (error) {
     alert('Error submitting form: ' + (error instanceof Error ? error.message : String(error)))
   }
