@@ -13,10 +13,9 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import  db  from '@/lib/db'
+import db from '@/lib/db'
 import {v4 as uuidv4} from 'uuid'
 import { PatientRecord } from '@/App'
-
 
 interface PatientFormProps {
   setPatientRecords: React.Dispatch<React.SetStateAction<PatientRecord[]>>;
@@ -97,11 +96,9 @@ async function onSubmit(values: FormSchemaType) {
     setPatientRecords(prev => [...prev, newPatientRecord]);
     form.reset()
     alert('Form submitted successfully!')
-    
   } catch (error) {
     alert('Error submitting form: ' + (error instanceof Error ? error.message : String(error)))
   }
-  
 }
 
 

@@ -1,6 +1,21 @@
-import { PGlite } from "@electric-sql/pglite";
+import { PGliteWorker } from '@electric-sql/pglite/worker'
+import { live } from '@electric-sql/pglite/live'
 
-const db = new PGlite('idb://patients-db')
+
+export const db = await PGliteWorker.create(
+  new Worker(new URL('./my-pglite-worker.ts', import.meta.url), {
+    type: 'module',
+  }),
+  {
+    extensions: {
+      live,
+    },
+    dataDir: 'idb://patients-db',
+  },
+
+)
+
+
 
 const createTable = async () => {
     await db.exec(`
@@ -29,6 +44,5 @@ const createTable = async () => {
   };
   
   createTable(); 
-
 
 export default db;

@@ -33,20 +33,29 @@ function App() {
   const [query, setQuery] = useState<string>("")
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+
   useEffect(() => {
-    async function fetchPatientRecords() {
-      try {
-        setLoading(true)
-        const data = await db.query("SELECT * FROM patients")
-        setPatientRecords(data.rows as PatientRecord[])
-      } catch (error) {
-        setError(error instanceof Error ? error.message : String(error))
-      } finally {
-        setLoading(false)
+    let unsubscribe: (() => void) | undefined;
+
+    const setupSubscription = async () => {
+      const liveQuery = await db.live.query(`SELECT * FROM patients`, [],
+        (results) => {
+          const data = results.rows as PatientRecord[]
+          setPatientRecords(data)
+        }
+      );
+      unsubscribe = liveQuery.unsubscribe;
+    };
+
+    setupSubscription();
+
+    return () => {
+      if (unsubscribe) {
+        unsubscribe();
       }
-    }
-    fetchPatientRecords()
-  }, [])
+    };
+  }, []);
+  
 
   useEffect(()=>{
     async function customQuery() {
@@ -65,10 +74,6 @@ function App() {
     }
   }, [query])
   
-
-  if (loading) {
-    return <div className="flex justify-center bg-black text-white items-center h-screen">Loading...</div>
-  }
 
 
   return (

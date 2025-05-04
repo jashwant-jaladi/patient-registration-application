@@ -4,7 +4,6 @@ import react from '@vitejs/plugin-react-swc'
 import path from "path"
 
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [tailwindcss(),react()],
   resolve: {
@@ -14,5 +13,8 @@ export default defineConfig({
   },
   optimizeDeps: {
     exclude: ['@electric-sql/pglite'],
+  },
+  worker: {
+    format: 'es',
   },
 })
