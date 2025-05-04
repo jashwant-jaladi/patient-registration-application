@@ -124,11 +124,11 @@ const formSchema = z.object({
 
   height: z
     .coerce.number({ invalid_type_error: 'Height must be a number' })
-    .min(0, { message: 'Height must be a positive number' }),
+    .min(1, { message: 'Height must be a positive number' }),
 
   weight: z
     .coerce.number({ invalid_type_error: 'Weight must be a number' })
-    .min(0, { message: 'Weight must be a positive number' }),
+    .min(1, { message: 'Weight must be a positive number' }),
 
   MaritalStatus: z.enum(['Single', 'Married', 'Divorced', 'Widowed'], {
     required_error: 'Marital status is required',
@@ -148,7 +148,7 @@ const formSchema = z.object({
     zip: z.string().regex(/^\d{6}$/, { message: 'Invalid ZIP code' }),
   }),
 
-  takingMedications: z.enum(['Select', 'Yes', 'No'], {
+  takingMedications: z.enum(['Yes', 'No'], {
     required_error: 'This field is required',
   }),
 
@@ -187,7 +187,7 @@ const formSchema = z.object({
         zip: '',
       },
 
-      takingMedications: 'Select',
+      takingMedications: undefined,
 
       emergencyContact: {
         firstname: '',

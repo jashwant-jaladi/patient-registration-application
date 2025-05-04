@@ -2,15 +2,22 @@ import { Input } from './ui/input'
 import { Button } from './ui/button'
 import { useState } from 'react'
 
+
 interface QueryInputProps {
   setQuery: (query: string) => void
+  setError: (error: string | null) => void
 }
 
-const QueryInput: React.FC<QueryInputProps> = ({ setQuery }) => {
+const QueryInput: React.FC<QueryInputProps> = ({ setQuery, setError }) => {
   const [input, setInput] = useState('')
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()  
+    e.preventDefault()
+    if (!input.trim()) {
+      setError('Please enter a query')
+      return
+    }
+    setError(null) 
     setQuery(input)
     setInput('')
   }

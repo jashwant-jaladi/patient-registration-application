@@ -5,6 +5,7 @@ import DisplayTable from "./components/DisplayTable"
 import { useEffect, useState } from "react"
 import db from "./lib/db"
 
+
 export interface PatientRecord {
   id: string;
   firstname: string;
@@ -38,6 +39,8 @@ function App() {
     let unsubscribe: (() => void) | undefined;
 
     const setupSubscription = async () => {
+      setLoading(true)
+      try {
       const liveQuery = await db.live.query(`SELECT * FROM patients`, [],
         (results) => {
           const data = results.rows as PatientRecord[]
@@ -45,6 +48,11 @@ function App() {
         }
       );
       unsubscribe = liveQuery.unsubscribe;
+    }catch (error) {
+      setError(error instanceof Error ? error.message : String(error))
+    } finally {
+      setLoading(false)
+    }
     };
 
     setupSubscription();
@@ -55,9 +63,9 @@ function App() {
       }
     };
   }, []);
-  
 
-  useEffect(()=>{
+
+  useEffect(() => {
     async function customQuery() {
       try {
         setLoading(true)
@@ -73,15 +81,26 @@ function App() {
       customQuery()
     }
   }, [query])
-  
 
+  useEffect(() => {
+    if (error) {
+      alert(`Error: ${error}`)
+    }
+  }, [error])
 
+    
   return (
     <div className="bg-black text-white min-h-screen">
       <Header />
       <PatientForm setPatientRecords={setPatientRecords} />
-      <QueryInput setQuery={setQuery} />
-      <DisplayTable patientRecords={patientRecords} />
+      <QueryInput setQuery={setQuery} setError={setError} />
+      {loading ? (
+        <div className="text-center mt-10">Loading patient records...</div>
+      ) : (
+        <DisplayTable patientRecords={patientRecords} />
+      )}
+     
+
     </div>
 
   )
