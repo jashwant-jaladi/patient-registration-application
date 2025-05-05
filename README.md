@@ -1,54 +1,55 @@
-# React + TypeScript + Vite
+# 🏥 Patient Registration App – Medblocks Task
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a frontend-only patient registration application built using **React + TypeScript** and **PGlite** for local SQL-based data storage.  
+It allows registering patients, executing custom SQL queries, and supports persistent storage and multi-tab synchronization.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🔧 Features
 
-## Expanding the ESLint configuration
+- ✅ **Register new patients** with full personal, contact, and emergency details
+- ✅ **Run custom SQL queries** to filter, view, or modify patient data
+- ✅ **Live data updates across multiple tabs** using PGlite’s live query subscriptions
+- ✅ **Persistent data** even after page refresh
+- ✅ **Validation and error alerts** for empty queries or malformed SQL
+- ✅ **Clear commit history** documenting each major feature
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 📦 Tech Stack
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- **React + TypeScript**
+- **PGlite** (SQLite-based, client-side DB)
+- **Tailwind CSS** for styling
+- **ShadCN UI** components
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (v16+ recommended)
+- npm
+
+### Installation
+
+```bash
+git clone https://github.com/jashwant-jaladi/patient-registration-application.git
+cd patient-registration-application
+npm install
+npm run dev
+
+---
+
+### Usage Instructions
+
+1. Fill out th patient registration form and click "Submit" to save the patient to local pglite database, you'll be able to see the registered patient if form is submitted successfully in the table below the form.
+2. Use the query input section to run SQL commands (e.g., SELECT * FROM patients WHERE height > 5). Click "Submit" to execute the query and view results in the table below.
+3. Open the app in multiple tabs. Any changes made (like registering a patient or deleting records) will automatically reflect across all open tabs in real time. But filtering the data is only restricted to the tab the query is executed.
+4. Refresh the page or close and reopen the browser — all registered patient data will remain intact.
+
+---
+## ⚠️ Challenges Faced
+
+Ensuring data updates reflected across tabs was tricky. db.live.query() with proper unsubscribe handling resolved this. Apart from that there weren't any major challenegs faced during the development of the application

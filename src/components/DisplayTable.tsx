@@ -9,6 +9,9 @@ import {
 } from "@/components/ui/table"
 import { PatientRecord } from "@/App";
 
+// This component renders a dynamic table of all registered patient records
+// It receives patient data as props and maps it into a styled table format
+
 interface DisplayTableProps {
     patientRecords: PatientRecord[];
 }
