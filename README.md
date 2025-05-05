@@ -52,7 +52,7 @@ npm run dev
 ---
 ## ⚠️ Challenges Faced
 
-Ensuring data updates reflected across tabs was tricky. db.live.query() with proper unsubscribe handling resolved this. Apart from that there weren't any major challenegs faced during the development of the application
+Ensuring data updates reflected across tabs was tricky. db.live.query() with proper unsubscribe handling resolved this. Apart from that there weren't any major challenges faced during the development of the application.
 
 ---
 📎 Submission
