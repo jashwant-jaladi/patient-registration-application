@@ -39,7 +39,7 @@ git clone https://github.com/jashwant-jaladi/patient-registration-application.gi
 cd patient-registration-application
 npm install
 npm run dev
-
+```
 ---
 
 ### Usage Instructions
@@ -53,3 +53,11 @@ npm run dev
 ## ⚠️ Challenges Faced
 
 Ensuring data updates reflected across tabs was tricky. db.live.query() with proper unsubscribe handling resolved this. Apart from that there weren't any major challenegs faced during the development of the application
+
+---
+📎 Submission
+GitHub Repository: [https://github.com/jashwant-jaladi/patient-registration-application]
+
+---
+👤 Author
+Jashwant
